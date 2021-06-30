@@ -53,9 +53,12 @@
     // todoItem = '';
     // console.log({ todos }, { todoItem });
   };
-  const deleteTodo = (todo) => {
+  const deleteTodo = async (todo) => {
+    await axios.delete('http://localhost:1337/todos/' + todo.id);
+    todos = todos.filter((to) => to.id !== todo.id);
+
     // Using filter to trigger update
-    todos = todos.filter((to) => to !== todo);
+    // todos = todos.filter((to) => to !== todo);
     console.log(todos);
 
     // Using splice to trigger update
@@ -64,7 +67,7 @@
     // console.log({ todos });
     // todos = todos;
   };
-  const toggleComplete = (todo) => {
+  const toggleComplete = async (todo) => {
     const todoIndex = todos.indexOf(todo);
     todos[todoIndex].isCompleted = !todos[todoIndex].isCompleted;
   };
