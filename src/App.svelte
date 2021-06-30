@@ -1,5 +1,5 @@
 <script>
-  export let name;
+  //   export let name;
   let todos = [
     {
       title: 'Todo A',
@@ -63,11 +63,8 @@
 </script>
 
 <main>
-  <h1>Hello {name}!</h1>
-  <p>
-    Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
-    how to build Svelte apps.
-  </p>
+  <h1>What's up!</h1>
+  <p>Today's tasks</p>
   <input type="text" bind:value={todoItem} />
   <button on:click={addTodo}>Add</button>
   <p>
@@ -83,7 +80,13 @@
   <ul>
     {#each todos as todo}
       <li class="todo-item" on:click={toggleComplete(todo)}>
-        {todo.title} <span on:click={deleteTodo(todo)}>X</span>
+        <input
+          type="checkbox"
+          class="form-checkbox text-indigo-600"
+          bind:checked={todo.done}
+        />
+        <span class:completed={todo.done}>{todo.title} </span>
+        <span on:click={deleteTodo(todo)}>X</span>
       </li>
     {:else}
       <p>No item in to-do!</p>
@@ -98,14 +101,6 @@
     max-width: 240px;
     margin: 0 auto;
   }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
-  }
-
   @media (min-width: 640px) {
     main {
       max-width: none;
