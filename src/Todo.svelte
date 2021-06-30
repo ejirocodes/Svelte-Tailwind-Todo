@@ -31,7 +31,9 @@
     // todos = todos;
 
     // Using a more idiomatic solution
-
+    if (!todoItem) {
+      return;
+    }
     todos = [
       ...todos,
       {
