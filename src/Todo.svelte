@@ -32,7 +32,7 @@
 
     // Using a more idiomatic solution
     if (!todoItem) {
-      return;
+      return alert('please add a goal for today!');
     }
     todos = [
       ...todos,
@@ -98,10 +98,14 @@
   <input
     type="text"
     bind:value={todoItem}
-    class="w-full rounded-xl bg-white border-0 bg-opacity-10 p-3 shadow-lg"
+    class="w-full rounded-xl bg-white border-0 outline-none bg-opacity-10 p-4 shadow-lg mt-4"
     placeholder="Add new goals"
   />
-  <button on:click={addTodo} class=" my-5 ">Add</button>
+  <button
+    on:click={addTodo}
+    class="my-5  p-4 bg-black text-white rounded-xl w-full hover:bg-opacity-60 transition border-0"
+    >Add</button
+  >
   <div class="text-center">
     <p>
       Completed Tasks: {todos.filter((todo) => {
@@ -121,7 +125,6 @@
     text-decoration: line-through;
   }
   section {
-    /* text-align: center; */
     max-width: 240px;
     margin: 0 auto;
     background-color: #2073dd;
