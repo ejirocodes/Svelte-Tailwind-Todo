@@ -51,15 +51,18 @@
     //   },
     // ];
     // todoItem = '';
-    // console.log({ todos }, { todoItem });
   };
+
   const deleteTodo = async (todo) => {
-    await axios.delete('http://localhost:1337/todos/' + todo.id);
-    todos = todos.filter((to) => to.id !== todo.id);
+    try {
+      await axios.delete(`http://localhost:1337/todos/${todo.id}`);
+      todos = todos.filter((to) => to.id !== todo.id);
+    } catch (e) {
+      isError = e;
+    }
 
     // Using filter to trigger update
     // todos = todos.filter((to) => to !== todo);
-    console.log(todos);
 
     // Using splice to trigger update
     // const todoIndex = todos.indexOf(todo);
@@ -67,9 +70,20 @@
     // console.log({ todos });
     // todos = todos;
   };
+
   const toggleComplete = async (todo) => {
     const todoIndex = todos.indexOf(todo);
-    todos[todoIndex].isCompleted = !todos[todoIndex].isCompleted;
+    try {
+      const { data } = await axios.put(
+        `http://localhost:1337/todos/${todo.id}`,
+        {
+          isCompleted: !todos[todoIndex].isCompleted,
+        }
+      );
+      todos[todoIndex].isCompleted = data.isCompleted;
+    } catch (e) {
+      isError = e;
+    }
   };
 
   const updateTodo = (todo) => {
