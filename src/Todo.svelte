@@ -67,7 +67,7 @@
   };
 </script>
 
-<section class="rounded-3xl text-white">
+<section class="rounded-3xl text-white py-10 px-6">
   <h1 class="text-4xl	font-bold mb-5">Hey there!</h1>
   <p class="text-2xl	mb-2">Today's Goal</p>
   <input type="text" bind:value={todoItem} placeholder="Add new goals" />
@@ -76,7 +76,7 @@
   <ul>
     {#each todos as todo}
       <li
-        class="rounded-xl bg-black bg-opacity-10	p-5 mb-4 flex items-center justify-between cursor-pointer hover:shadow-lg"
+        class="rounded-xl bg-black bg-opacity-10	p-5 mb-4 flex items-center justify-between cursor-pointer hover:shadow-lg transition transform hover:scale-110"
       >
         <div>
           <input
@@ -116,7 +116,6 @@
   }
   section {
     /* text-align: center; */
-    padding: 1em;
     max-width: 240px;
     margin: 0 auto;
     background-color: #2073dd;
