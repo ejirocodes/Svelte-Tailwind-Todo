@@ -24,8 +24,36 @@
   ];
   let todoItem = '';
   const addTodo = () => {
-    todos.push(todoItem);
+    // Using push to trigger update
+    // todos.push({
+    //   title: todoItem,
+    //   project: todoItem,
+    //   done: false,
+    // });
+    // todos = todos;
+
+    // Using a more idiomatic solution
+    todos = [
+      ...todos,
+      {
+        title: todoItem,
+        project: todoItem,
+        done: false,
+      },
+    ];
+    todoItem = '';
     console.log({ todos }, { todoItem });
+  };
+  const deleteTodo = (todo) => {
+    // Using filter to trigger update
+    todos = todos.filter((to) => to !== todo);
+    console.log(todos);
+
+    // Using splice to trigger update
+    // const todoIndex = todos.indexOf(todo);
+    // todos.splice(todoIndex, 1);
+    // console.log({ todos });
+    // todos = todos;
   };
 </script>
 
@@ -49,7 +77,7 @@
   </p>
   <ul>
     {#each todos as todo}
-      <li>{todo.title}</li>
+      <li>{todo.title} <span on:click={deleteTodo(todo)}>X</span></li>
     {:else}
       <p>No item in to-do!</p>
     {/each}
