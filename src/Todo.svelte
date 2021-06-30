@@ -86,9 +86,19 @@
     }
   };
 
-  const updateTodo = (todo) => {
-    console.log({ todo });
-    console.log({ todos });
+  const updateTodo = async (todo) => {
+    try {
+      const { data } = await axios.put(
+        `http://localhost:1337/todos/${todo.id}`,
+        {
+          todoItem: todo.todoItem,
+        }
+      );
+      console.log(data);
+      //   todos = [...todos, data];
+    } catch (e) {
+      isError = e;
+    }
   };
   onMount(async () => {
     await getTodos();
