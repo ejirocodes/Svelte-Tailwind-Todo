@@ -69,10 +69,7 @@
 
 <section class="rounded-3xl text-white py-10 px-6">
   <h1 class="text-4xl	font-bold mb-5">Hey there!</h1>
-  <p class="text-2xl	mb-2">Today's Goal</p>
-  <input type="text" bind:value={todoItem} placeholder="Add new goals" />
-  <button on:click={addTodo}>Add</button>
-
+  <p class="text-2xl	mb-4">Today's Goal</p>
   <ul>
     {#each todos as todo}
       <li
@@ -98,16 +95,25 @@
       <p>No goals for today!</p>
     {/each}
   </ul>
-  <p>
-    Completed Tasks: {todos.filter((todo) => {
-      return todo.done;
-    }).length}
-  </p>
-  <p>
-    Pending Tasks: {todos.filter((todo) => {
-      return todo.done === false;
-    }).length}
-  </p>
+  <input
+    type="text"
+    bind:value={todoItem}
+    class="w-full rounded-xl bg-white border-0 bg-opacity-10 p-3 shadow-lg"
+    placeholder="Add new goals"
+  />
+  <button on:click={addTodo} class=" my-5 ">Add</button>
+  <div class="text-center">
+    <p>
+      Completed Tasks: {todos.filter((todo) => {
+        return todo.done;
+      }).length}
+    </p>
+    <p>
+      Pending Tasks: {todos.filter((todo) => {
+        return todo.done === false;
+      }).length}
+    </p>
+  </div>
 </section>
 
 <style>
@@ -122,7 +128,7 @@
   }
   @media (min-width: 640px) {
     section {
-      max-width: 400px;
+      max-width: 430px;
     }
   }
 </style>
