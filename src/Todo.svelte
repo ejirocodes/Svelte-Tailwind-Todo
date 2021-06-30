@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
-
+  let deletIcon = 'images/trash.svg';
+  let addIcon = 'images/plus.svg';
   let todos = [
     {
       title: 'Todo A',
@@ -89,7 +90,9 @@
             on:change={updateTodo(todo)}
           />
         </div>
-        <button on:click={deleteTodo(todo)}>X</button>
+        <button on:click={deleteTodo(todo)} class="border-0"
+          ><img src={deletIcon} alt="delete todo" class="w-6 " /></button
+        >
       </li>
     {:else}
       <p>No goals for today!</p>
@@ -103,8 +106,9 @@
   />
   <button
     on:click={addTodo}
-    class="my-5  p-4 bg-black text-white rounded-xl w-full hover:bg-opacity-60 transition border-0"
-    >Add</button
+    class="my-5  p-5 bg-black text-white rounded-xl w-full hover:bg-opacity-60 transition border-0 capitalize flex items-center justify-center"
+    ><span><img src={addIcon} alt="add todo" class="w-6 mr-4" /></span>Add new
+    todo</button
   >
   <div class="text-center">
     <p>
