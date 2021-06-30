@@ -1,23 +1,22 @@
 <script>
-  import { onMount } from 'svelte';
   let deletIcon = 'images/trash.svg';
   let addIcon = 'images/plus.svg';
   let todos = [
     {
       title: 'Todo A',
-      done: false,
+      isCompleted: false,
     },
     {
       title: 'Todo B',
-      done: true,
+      isCompleted: true,
     },
     {
       title: 'Todo C',
-      done: false,
+      isCompleted: false,
     },
     {
       title: 'Todo D',
-      done: false,
+      isCompleted: false,
     },
   ];
   let todoItem = '';
@@ -27,7 +26,7 @@
     // todos.push({
     //   title: todoItem,
     //   project: todoItem,
-    //   done: false,
+    //   isCompleted: false,
     // });
     // todos = todos;
 
@@ -40,7 +39,7 @@
       {
         title: todoItem,
         project: todoItem,
-        done: false,
+        isCompleted: false,
       },
     ];
     todoItem = '';
@@ -59,7 +58,7 @@
   };
   const toggleComplete = (todo) => {
     const todoIndex = todos.indexOf(todo);
-    todos[todoIndex].done = !todos[todoIndex].done;
+    todos[todoIndex].isCompleted = !todos[todoIndex].isCompleted;
   };
 
   const updateTodo = (todo) => {
@@ -80,11 +79,11 @@
           <input
             type="checkbox"
             class="mr-3"
-            bind:checked={todo.done}
+            bind:checked={todo.isCompleted}
             on:click={toggleComplete(todo)}
           />
           <input
-            class:completed={todo.done}
+            class:completed={todo.isCompleted}
             class="border-0 bg-transparent"
             bind:value={todo.title}
             on:change={updateTodo(todo)}
@@ -113,12 +112,12 @@
   <div class="text-center">
     <p>
       Completed Tasks: {todos.filter((todo) => {
-        return todo.done;
+        return todo.isCompleted;
       }).length}
     </p>
     <p>
       Pending Tasks: {todos.filter((todo) => {
-        return todo.done === false;
+        return todo.isCompleted === false;
       }).length}
     </p>
   </div>
