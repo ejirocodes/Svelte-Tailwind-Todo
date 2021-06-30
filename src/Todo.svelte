@@ -130,6 +130,7 @@
             class="border-0 bg-transparent w-full"
             bind:value={todo.todoItem}
             on:change={updateTodo(todo)}
+            on:input={updateTodo(todo)}
           />
         </div>
         <button on:click={deleteTodo(todo)} class="border-0"
