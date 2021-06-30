@@ -8,7 +8,17 @@
   let todoItem = '';
   let todos = [];
 
-  const addTodo = () => {
+  const getTodos = async () => {
+    try {
+      const res = await axios.get('http://localhost:1337/todos');
+      todos = res.data;
+      console.log({ todos });
+    } catch (e) {
+      isError = e;
+    }
+  };
+
+  const addTodo = async () => {
     // Using push to trigger update
     // todos.push({
     //   title: todoItem,
@@ -17,20 +27,32 @@
     // });
     // todos = todos;
 
-    // Using a more idiomatic solution
-    if (!todoItem) {
-      return alert('please add a goal for today!');
-    }
-    todos = [
-      ...todos,
-      {
-        title: todoItem,
-        project: todoItem,
+    try {
+      if (!todoItem) {
+        return alert('please add a goal for today!');
+      }
+
+      const { data } = await axios.post('http://localhost:1337/todos', {
+        todoItem,
         isCompleted: false,
-      },
-    ];
-    todoItem = '';
-    console.log({ todos }, { todoItem });
+      });
+      getTodos();
+      todoItem = '';
+    } catch (e) {
+      isError = e;
+    }
+
+    // Using a more idiomatic solution
+    // todos = [
+    //   ...todos,
+    //   {
+    //     todoItem: todoItem,
+    //     project: todoItem,
+    //     isCompleted: false,
+    //   },
+    // ];
+    // todoItem = '';
+    // console.log({ todos }, { todoItem });
   };
   const deleteTodo = (todo) => {
     // Using filter to trigger update
@@ -53,13 +75,7 @@
     console.log({ todos });
   };
   onMount(async () => {
-    try {
-      const res = await axios.get('http://localhost:1337/todos');
-      todos = res.data;
-      console.log({ todos });
-    } catch (e) {
-      isError = e;
-    }
+    await getTodos();
   });
 </script>
 
@@ -85,7 +101,7 @@
           />
           <input
             class:completed={todo.isCompleted}
-            class="border-0 bg-transparent"
+            class="border-0 bg-transparent w-full"
             bind:value={todo.todoItem}
             on:change={updateTodo(todo)}
           />
