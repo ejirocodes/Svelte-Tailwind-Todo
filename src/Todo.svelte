@@ -67,26 +67,31 @@
   };
 </script>
 
-<section class="rounded-3xl ">
-  <h1 class="">Hey there!</h1>
-  <p>Today's Goal</p>
-  <input type="text" bind:value={todoItem} />
+<section class="rounded-3xl text-white">
+  <h1 class="text-4xl	font-bold mb-5">Hey there!</h1>
+  <p class="text-2xl	mb-2">Today's Goal</p>
+  <input type="text" bind:value={todoItem} placeholder="Add new goals" />
   <button on:click={addTodo}>Add</button>
 
   <ul>
     {#each todos as todo}
-      <li class="rounded-3xl bg-black bg-opacity-10	p-5 mb-4">
-        <input
-          type="checkbox"
-          bind:checked={todo.done}
-          on:click={toggleComplete(todo)}
-        />
-        <input
-          class:completed={todo.done}
-          class="border-0 bg-transparent text-white"
-          bind:value={todo.title}
-          on:change={updateTodo(todo)}
-        />
+      <li
+        class="rounded-xl bg-black bg-opacity-10	p-5 mb-4 flex items-center justify-between cursor-pointer hover:shadow-lg"
+      >
+        <div>
+          <input
+            type="checkbox"
+            class="mr-3"
+            bind:checked={todo.done}
+            on:click={toggleComplete(todo)}
+          />
+          <input
+            class:completed={todo.done}
+            class="border-0 bg-transparent"
+            bind:value={todo.title}
+            on:change={updateTodo(todo)}
+          />
+        </div>
         <button on:click={deleteTodo(todo)}>X</button>
       </li>
     {:else}
@@ -110,7 +115,7 @@
     text-decoration: line-through;
   }
   section {
-    text-align: center;
+    /* text-align: center; */
     padding: 1em;
     max-width: 240px;
     margin: 0 auto;
