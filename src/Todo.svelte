@@ -31,6 +31,7 @@
     // todos = todos;
 
     // Using a more idiomatic solution
+
     todos = [
       ...todos,
       {
@@ -64,15 +65,15 @@
   };
 </script>
 
-<main>
-  <h1 class="p-3 hover:text-red-900">What's up!</h1>
-  <p>Today's tasks</p>
+<section class="rounded-3xl ">
+  <h1 class="">Hey there!</h1>
+  <p>Today's Goal</p>
   <input type="text" bind:value={todoItem} />
   <button on:click={addTodo}>Add</button>
 
   <ul>
     {#each todos as todo}
-      <li class="todo-item-wrapper">
+      <li class="rounded-3xl bg-black bg-opacity-10	p-5 mb-4">
         <input
           type="checkbox"
           bind:checked={todo.done}
@@ -80,14 +81,14 @@
         />
         <input
           class:completed={todo.done}
-          class="border-0"
+          class="border-0 bg-transparent text-white"
           bind:value={todo.title}
           on:change={updateTodo(todo)}
         />
-        <span on:click={deleteTodo(todo)}>X</span>
+        <button on:click={deleteTodo(todo)}>X</button>
       </li>
     {:else}
-      <p>No item in to-do!</p>
+      <p>No goals for today!</p>
     {/each}
   </ul>
   <p>
@@ -100,23 +101,22 @@
       return todo.done === false;
     }).length}
   </p>
-</main>
+</section>
 
 <style>
-  main {
+  .completed {
+    text-decoration: line-through;
+  }
+  section {
     text-align: center;
     padding: 1em;
     max-width: 240px;
     margin: 0 auto;
+    background-color: #2073dd;
   }
   @media (min-width: 640px) {
-    main {
-      max-width: none;
+    section {
+      max-width: 400px;
     }
-  }
-  .completed {
-    text-decoration: line-through;
-  }
-  .todo-item {
   }
 </style>
