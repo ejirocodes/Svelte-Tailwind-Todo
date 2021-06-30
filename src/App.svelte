@@ -55,6 +55,11 @@
     // console.log({ todos });
     // todos = todos;
   };
+  const toggleComplete = (todo) => {
+    const todoIndex = todos.indexOf(todo);
+    todos[todoIndex].done = !todos[todoIndex].done;
+    console.log(todos);
+  };
 </script>
 
 <main>
@@ -77,7 +82,9 @@
   </p>
   <ul>
     {#each todos as todo}
-      <li>{todo.title} <span on:click={deleteTodo(todo)}>X</span></li>
+      <li class="todo-item" on:click={toggleComplete(todo)}>
+        {todo.title} <span on:click={deleteTodo(todo)}>X</span>
+      </li>
     {:else}
       <p>No item in to-do!</p>
     {/each}
@@ -103,5 +110,23 @@
     main {
       max-width: none;
     }
+  }
+  .completed {
+    text-decoration: line-through;
+  }
+  @keyframes strike {
+    from {
+      text-decoration-color: transparent;
+    }
+    to {
+      text-decoration-color: auto;
+    }
+  }
+  .todo-item {
+    /* transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s; */
+  }
+  .todo-item:hover {
+    text-decoration: line-through;
+    animation: strike 0.2s linear;
   }
 </style>
