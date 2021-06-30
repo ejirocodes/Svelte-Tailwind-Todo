@@ -12,7 +12,6 @@
     try {
       const res = await axios.get('http://localhost:1337/todos');
       todos = res.data;
-      console.log({ todos });
     } catch (e) {
       isError = e;
     }
@@ -67,7 +66,6 @@
     // Using splice to trigger update
     // const todoIndex = todos.indexOf(todo);
     // todos.splice(todoIndex, 1);
-    // console.log({ todos });
     // todos = todos;
   };
 
@@ -77,7 +75,7 @@
       const { data } = await axios.put(
         `http://localhost:1337/todos/${todo.id}`,
         {
-          isCompleted: !todos[todoIndex].isCompleted,
+          isCompleted: !todo.isCompleted,
         }
       );
       todos[todoIndex].isCompleted = data.isCompleted;
@@ -87,6 +85,7 @@
   };
 
   const updateTodo = async (todo) => {
+    const todoIndex = todos.indexOf(todo);
     try {
       const { data } = await axios.put(
         `http://localhost:1337/todos/${todo.id}`,
@@ -94,8 +93,7 @@
           todoItem: todo.todoItem,
         }
       );
-      console.log(data);
-      //   todos = [...todos, data];
+      todos[todoIndex].todoItem = data.todoItem;
     } catch (e) {
       isError = e;
     }
