@@ -103,7 +103,9 @@
   });
 </script>
 
-<section class="rounded-3xl text-white py-10 px-6">
+<section
+  class="rounded-3xl text-white py-10 px-6 mx-auto my-0 max-w-xs	sm:max-w-md	"
+>
   <h1 class="text-4xl	font-bold mb-5">Hey there!</h1>
   {#if todos.length > 0}
     <p class="text-2xl mb-4">Today's Goal</p>
@@ -150,8 +152,8 @@
     ><span><img src={addIcon} alt="add todo" class="w-6 mr-4" /></span>Add new
     todo</button
   >
-  <div class="text-center">
-    <p>
+  <div class="text-center text-xl">
+    <p class="mb-3">
       Completed Tasks: {todos.filter((todo) => {
         return todo.isCompleted;
       }).length}
@@ -169,13 +171,6 @@
     text-decoration: line-through;
   }
   section {
-    max-width: 240px;
-    margin: 0 auto;
     background-color: #2073dd;
-  }
-  @media (min-width: 640px) {
-    section {
-      max-width: 430px;
-    }
   }
 </style>
