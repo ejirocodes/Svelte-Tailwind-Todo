@@ -1,25 +1,12 @@
 <script>
+  import { onMount } from 'svelte';
   let deletIcon = 'images/trash.svg';
   let addIcon = 'images/plus.svg';
-  let todos = [
-    {
-      title: 'Todo A',
-      isCompleted: false,
-    },
-    {
-      title: 'Todo B',
-      isCompleted: true,
-    },
-    {
-      title: 'Todo C',
-      isCompleted: false,
-    },
-    {
-      title: 'Todo D',
-      isCompleted: false,
-    },
-  ];
+  import axios from 'axios';
+
+  let isError = null;
   let todoItem = '';
+  let todos = [];
 
   const addTodo = () => {
     // Using push to trigger update
@@ -65,17 +52,31 @@
     console.log({ todo });
     console.log({ todos });
   };
+  onMount(async () => {
+    try {
+      const res = await axios.get('http://localhost:1337/todos');
+      todos = res.data;
+      console.log({ todos });
+    } catch (e) {
+      isError = e;
+    }
+  });
 </script>
 
 <section class="rounded-3xl text-white py-10 px-6">
   <h1 class="text-4xl	font-bold mb-5">Hey there!</h1>
-  <p class="text-2xl	mb-4">Today's Goal</p>
+  {#if todos.length > 0}
+    <p class="text-2xl mb-4">Today's Goal</p>
+  {/if}
+  {#if isError}
+    <p class="text-xl mb-2 text-red-600">{isError}</p>
+  {/if}
   <ul>
     {#each todos as todo}
       <li
         class="rounded-xl bg-black bg-opacity-10	p-5 mb-4 flex items-center justify-between cursor-pointer hover:shadow-lg transition transform hover:scale-110"
       >
-        <div>
+        <div class="flex items-center w-full">
           <input
             type="checkbox"
             class="mr-3"
@@ -85,7 +86,7 @@
           <input
             class:completed={todo.isCompleted}
             class="border-0 bg-transparent"
-            bind:value={todo.title}
+            bind:value={todo.todoItem}
             on:change={updateTodo(todo)}
           />
         </div>
