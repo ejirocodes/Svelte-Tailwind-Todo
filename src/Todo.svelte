@@ -28,15 +28,14 @@
     // todos = todos;
 
     try {
-      if (!todoItem) {
-        return alert('please add a goal for today!');
-      }
+      if (!todoItem) return alert('please add a goal for today!');
 
-      const { data } = await axios.post('http://localhost:1337/todos', {
+      const res = await axios.post('http://localhost:1337/todos', {
         todoItem,
         isCompleted: false,
       });
-      getTodos();
+      // Using a more idiomatic solution
+      todos = [...todos, res?.data];
       todoItem = '';
     } catch (e) {
       isError = e;
